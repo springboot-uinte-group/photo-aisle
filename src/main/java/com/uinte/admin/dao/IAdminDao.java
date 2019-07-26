@@ -5,7 +5,7 @@ import com.uinte.model.TAdmin;
 
 /**
  * 
- * @author hzc 2017年2月12日
+ * @author admin 2017年2月12日
  *
  */
 public interface IAdminDao extends BaseMapper<TAdmin>{

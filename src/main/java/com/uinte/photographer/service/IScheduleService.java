@@ -7,7 +7,7 @@ import com.uinte.vo.ScheduleVO;
 
 /**
  * 
- * @author hzc 2017年2月12日
+ * @author admin 2017年2月12日
  *
  */
 public interface IScheduleService extends IService<TSchedule> {

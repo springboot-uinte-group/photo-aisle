@@ -5,7 +5,7 @@ import com.uinte.model.TAttachment;
 
 /**
  * 
- * @author hzc 2017年2月12日
+ * @author admin 2017年2月12日
  *
  */
 public interface IAttachmentService extends IService<TAttachment> {

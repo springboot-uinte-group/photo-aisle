@@ -9,7 +9,7 @@ import com.uinte.model.TComment;
 
 /**
  * 
- * @author hzc 2017年3月1日
+ * @author admin 2017年3月1日
  *
  */
 @Service(value = "commentService")

@@ -9,7 +9,7 @@ import com.uinte.photographer.service.IPhotographerSpotsService;
 
 /**
  * 
- * @author hzc 2017年2月12日
+ * @author admin 2017年2月12日
  *
  */
 @Service(value = "photographerSpotsService")

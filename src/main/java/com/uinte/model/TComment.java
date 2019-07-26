@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 /**
  * 
- * @author hzc 2017年2月26日
+ * @author admin 2017年2月26日
  *
  */
 @Table(name = "t_comment")

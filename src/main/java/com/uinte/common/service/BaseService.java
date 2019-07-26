@@ -15,7 +15,7 @@ import com.uinte.common.dao.BaseMapper;
 
 
 /**
- * @author hzc 通用接口实现类
+ * @author admin 通用接口实现类
  */
 public class BaseService<T> implements IService<T> {
 

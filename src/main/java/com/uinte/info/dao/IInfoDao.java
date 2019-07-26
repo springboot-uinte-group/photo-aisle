@@ -5,7 +5,7 @@ import com.uinte.model.TInfomation;
 
 /**
  * 
- * @author hzc 2017年2月12日
+ * @author admin 2017年2月12日
  *
  */
 public interface IInfoDao extends BaseMapper<TInfomation>{

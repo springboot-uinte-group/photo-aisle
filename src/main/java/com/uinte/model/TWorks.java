@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 /**
  * 
- * @author hzc 2017年2月12日
+ * @author admin 2017年2月12日
  *
  */
 @Table(name = "t_works")

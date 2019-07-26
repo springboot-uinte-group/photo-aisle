@@ -32,7 +32,7 @@ import com.uinte.vo.ReturnResult;
 
 /**
  * 
- * @author hzc 2017年2月12日
+ * @author admin 2017年2月12日
  *
  */
 @Controller
@@ -65,7 +65,8 @@ public class PhotographerController {
 		returnResult.setStatus(ReturnCodeType.FAILURE);
 		try {
 			String subDir = "uploads\\photographer\\";
-			Map<String, String> map = OperationFileUtil.multiFileUpload(request, request.getServletContext().getRealPath("/") + subDir);
+			Map<String, String> map = OperationFileUtil.multiFileUpload(request,
+					request.getServletContext().getRealPath("/") + subDir);
 			String filePath = "";
 			for (Map.Entry<String, String> entry : map.entrySet()) {
 				filePath = entry.getValue();
@@ -143,8 +144,8 @@ public class PhotographerController {
 	}
 
 	/**
-	 * 根据id获取Photographer
-	 * admin
+	 * 根据id获取Photographer admin
+	 * 
 	 * @param Photographer
 	 * @return
 	 */
@@ -153,20 +154,20 @@ public class PhotographerController {
 	public ReturnResult getPhotographerById(Integer id) {
 		returnResult.setStatus(ReturnCodeType.FAILURE);
 		try {
-			returnResult.setStatus(ReturnCodeType.SUCCESS)
-					.setData(photographerService.selectBySQL(
-							"SELECT a.*,b.labelId,c.levelId,d.spotsId FROM t_photographer a,t_photographer_label b,t_photographer_level c,t_photographer_spots d WHERE a.id ="
-									+ id + " AND b.photographerId=" + id + " AND c.photographer=" + id
-									+ " AND d.photographerId=" + id + "")
-							.get(0));
+			returnResult.setStatus(ReturnCodeType.SUCCESS).setData(photographerService.selectBySQL(
+					"SELECT a.*,b.labelId,c.levelId,d.spotsId FROM t_photographer a,t_photographer_label b,t_photographer_level c,t_photographer_spots d WHERE a.id ="
+							+ id + " AND b.photographerId=" + id + " AND c.photographer=" + id
+							+ " AND d.photographerId=" + id + "")
+					.get(0));
 		} catch (Exception e) {
 			logger.error("根据id获取Photographer失败" + e);
 		}
 		return returnResult;
 	}
+
 	/**
-	 * 根据id获取Photographer
-	 * user
+	 * 根据id获取Photographer user
+	 * 
 	 * @param Photographer
 	 * @return
 	 */
@@ -175,9 +176,10 @@ public class PhotographerController {
 	public ReturnResult getPhotographer(Integer id) {
 		returnResult.setStatus(ReturnCodeType.FAILURE);
 		try {
-			returnResult.setStatus(ReturnCodeType.SUCCESS)
-			.setData(photographerService.selectBySQL(
-					"SELECT a.name,a.head,a.summary,d.`name` AS level,e.`name` AS spots FROM t_photographer a,t_photographer_level b,t_photographer_spots c,t_level d,t_spots e WHERE a.id="+id+" AND b.photographer="+id+" AND c.photographerId="+id+" AND d.id=b.levelId AND e.id = c.spotsId AND a.`status`=0")
+			returnResult.setStatus(ReturnCodeType.SUCCESS).setData(photographerService.selectBySQL(
+					"SELECT a.name,a.head,a.summary,d.`name` AS level,e.`name` AS spots FROM t_photographer a,t_photographer_level b,t_photographer_spots c,t_level d,t_spots e WHERE a.id="
+							+ id + " AND b.photographer=" + id + " AND c.photographerId=" + id
+							+ " AND d.id=b.levelId AND e.id = c.spotsId AND a.`status`=0")
 					.get(0));
 		} catch (Exception e) {
 			logger.error("根据id获取Photographer失败" + e);
@@ -253,12 +255,13 @@ public class PhotographerController {
 			StringBuffer sql = new StringBuffer(
 					"SELECT a.*,f.`name` AS label,g.`name` AS level,h.`name` AS spots FROM t_photographer a,t_photographer_label b,t_photographer_level c ,t_photographer_spots d,t_label f,t_level g,t_spots h WHERE a.id=b.photographerId AND a.id = c.photographer AND a.id = d.photographerId AND f.id=b.labelId AND g.id=c.levelId AND h.id= d.spotsId AND a.status=0");
 
-			StringBuffer countSql = new StringBuffer("SELECT COUNT(*) AS total FROM t_photographer a,t_photographer_label b,t_photographer_level c ,t_photographer_spots d,t_label f,t_level g,t_spots h WHERE a.id=b.photographerId AND a.id = c.photographer AND a.id = d.photographerId AND f.id=b.labelId AND g.id=c.levelId AND h.id= d.spotsId AND a.status=0");
+			StringBuffer countSql = new StringBuffer(
+					"SELECT COUNT(*) AS total FROM t_photographer a,t_photographer_label b,t_photographer_level c ,t_photographer_spots d,t_label f,t_level g,t_spots h WHERE a.id=b.photographerId AND a.id = c.photographer AND a.id = d.photographerId AND f.id=b.labelId AND g.id=c.levelId AND h.id= d.spotsId AND a.status=0");
 			if (StringUtils.isNotBlank(start) && StringUtils.isNotBlank(end)) {
-				List<String> list = photographerService.selectByStartEnd(start,end);
-				for(String id : list){
-					sql.append(" AND a.id!="+id);
-					countSql.append(" AND a.id!="+id);
+				List<String> list = photographerService.selectByStartEnd(start, end);
+				for (String id : list) {
+					sql.append(" AND a.id!=" + id);
+					countSql.append(" AND a.id!=" + id);
 				}
 			}
 			if (StringUtils.isNotBlank(labelId)) {
@@ -283,7 +286,8 @@ public class PhotographerController {
 			List<Map<String, Object>> results = photographerService.selectPageBySQL(sql.toString(), page.getPage() - 1,
 					page.getRows());
 			if (!results.isEmpty() && results != null) {
-				int total = Integer.valueOf( photographerService.selectBySQL(countSql.toString()).get(0).get("total").toString());
+				int total = Integer
+						.valueOf(photographerService.selectBySQL(countSql.toString()).get(0).get("total").toString());
 				int rows = page.getRows();
 				rows = rows == 0 ? 10 : rows;
 				resultMap.put("total", (total % rows != 0 ? (total / rows + 1) : (total / rows)));

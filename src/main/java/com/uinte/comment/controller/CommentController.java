@@ -25,7 +25,7 @@ import com.uinte.vo.ReturnResult;
 
 /**
  * 
- *@author hzc 2017年3月1日
+ *@author admin 2017年3月1日
  *
  */
 @Controller
