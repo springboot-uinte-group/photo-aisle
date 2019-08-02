@@ -35,6 +35,11 @@
 		<script src="statics/banner.js"></script>
 		<script src="statics/jquery.wookmark.js"></script>
 		<!--<link href="statics/index3.css" />-->
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#footer").load("./footer/footer.html");
+			});
+		</script>
 	</head>
 
 	<body>
@@ -650,12 +655,8 @@
 			calendar.init();
 		</script>
 
-		<div class="footer-wrap mar-t20">
-			<div class="copyright">
-				<a href="http://www.miibeian.gov.cn" style="color: #fff; text-decoration: underline;">粤ICP备10000001号</a> &nbsp;<a href="http://blog.gzvtc.cc" style="color: #fff; text-decoration: underline;">梦工程工作室出品 -gzgchzc</a></a><br /> @ 2017 GZVTC.CC &nbsp;
-			</div>
-		</div>
-<div class="modal fade" id="myLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="">
+		<div id="footer"></div>
+	<div class="modal fade" id="myLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="">
     <div class="modal-dialog modal_wrap">
         <div class="modal-content">
             <div class="modal-header login_tit clearfix">

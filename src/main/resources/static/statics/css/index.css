@@ -1,5 +1,5 @@
-ï»¿/* dede58.com åšæœ€å¥½çš„ç»‡æ¢¦æ¨¡æ¿ */
-/*é¦–é¡µæ ·å¼*/
+/* dede58.com ×ö×îºÃµÄÖ¯ÃÎÄ£°å */
+/*Ê×Ò³ÑùÊ½*/
 .Column-stage {
 	margin-top: 30px;
 	padding-bottom: 8px;
@@ -17,10 +17,10 @@
 	padding-top: 40px;
 }
 .Column-stage .m1 {
-	background: url(../images/i-ccnews.jpg) no-repeat;
+/* 	background: url(../images/i-ccnews.jpg) no-repeat; */
 }
 .Column-stage .m2 {
-	background: url(../images/i-ccwedding.jpg) no-repeat;
+/* 	background: url(../images/i-ccwedding.jpg) no-repeat; */
 }
 .Column-stage .m3 {
 	background: url(../images/i-ccportrait.jpg) no-repeat;
@@ -32,7 +32,7 @@
 	background: url(../images/i-service.jpg) no-repeat;
 }
 .Column-stage .m6 {
-	background: url(../images/i-scenario.jpg) no-repeat;
+/* 	background: url(../images/i-scenario.jpg) no-repeat; */
 }
 .Column-stage .m7 {
 	background: url(../images/i-service2.jpg) no-repeat;
@@ -600,7 +600,7 @@
 	margin-top: 4px;
 	height: 36px;
 	overflow: hidden;
-	font: 12px/1.5 "å®‹ä½“";
+	font: 12px/1.5 "ËÎÌå";
 	color: #7e7f7f;
 }
 .boxY-info-hd h4 {
@@ -609,4 +609,4 @@
 	font-size: 14px;
 	font-weight: normal;
 }
-/*End é¦–é¡µæ ·å¼*/
+/*End Ê×Ò³ÑùÊ½*/

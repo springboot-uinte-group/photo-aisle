@@ -21,6 +21,11 @@
 		<!--[if lt IE 7]>
 		<script type="text/javascript" src="statics/js/pngfix.js"></script>
 		<![endif]-->
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#footer").load("./footer/footer.html");
+			});
+		</script>
 	</head>
 
 	<body>
@@ -40,17 +45,17 @@
 								<span class='s-all'>摄影故事<span class='s-en'>Wedding</span></span>
 							</a>
 						</li>
-						<li>
+<!-- 						<li>
 							<a href='photoer.html'>
-								<span class='s-all'>选摄影师<span class='s-en'>Photographer</span></span>
+								<span class='s-all'>摄影师<span class='s-en'>Photographer</span></span>
 							</a>
-						</li>
+						</li> -->
 						<li>
 							<a href='spots.html'>
-								<span class='s-all'>拍摄景点<span class='s-en'>Spots</span></span>
+								<span class='s-all'>去过的地方<span class='s-en'>Spots</span></span>
 							</a>
 						</li>
-						<li>
+<!-- 						<li>
 							<a href='information.html'>
 								<span class='s-all'>热门活动<span class='s-en'>Activities</span></span>
 							</a>
@@ -62,7 +67,7 @@
 						<li>
 							<a href="member.html"><span class="s-all">会员<span class="s-en">Member</span></span>
 							</a>
-						</li>
+						</li> -->
 					</ul>
 				</div>
 			</div>
@@ -70,9 +75,9 @@
 		<div class="pic-bg">
 			<div class="adv">
 				<div class="bigpic">
-
 					<div class="jsNav">
 						<a class="trigger imgSelected"></a>
+						<a class="trigger"></a>
 						<a class="trigger"></a>
 						<a class="trigger"></a>
 					</div>
@@ -85,10 +90,13 @@
 					<div class="pica">
 						<img id="banner3" />
 					</div>
+					<div class="pica">
+						<img id="banner4" />
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="indexC-wrap">
+		<!-- <div class="indexC-wrap">
 			<div class="indexContact clearfix">
 				<a class="qq" href="http://wpa.qq.com/msgrd?v=3&amp;uin=00000000&amp;site=qq&amp;menu=yes" title="咨询QQ：00000000"></a>
 				<a class="phone" href="brand.html" title="全国统一客服热线：020-00000000"></a>
@@ -96,7 +104,7 @@
 				<a class="pay" href="brand.html" title="查看支付账号"></a>
 				<a class="vip" href="login.html" title="贵宾VIP通道"></a>
 			</div>
-		</div>
+		</div> -->
 
 		<div class="Column-stage">
 			<div class="w1200 clearfix">
@@ -119,7 +127,6 @@
 					<div class="r-tab">
 						<ul id="play-btn">
 
-
 						</ul>
 					</div>
 				</div>
@@ -138,7 +145,6 @@
 		<div class="w1200 clearfix">
 			<ul class="C-photos-list" id="works">
 				
-
 			</ul>
 		</div>
 
@@ -172,14 +178,7 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="footer-wrap mar-t20">
-			<div class="copyright">
-				<a href="http://www.miibeian.gov.cn" style="color: #fff; text-decoration: underline;">粤ICP备10000001号</a> &nbsp;<a href="http://blog.gzvtc.cc" style="color: #fff; text-decoration: underline;">梦工程工作室出品 -gzgchzc</a></a><br /> @ 2017 GZVTC.CC &nbsp;
-			</div>
-		</div>
-
-		
+		<div id="footer"></div>
 	</body>
 
 </html>

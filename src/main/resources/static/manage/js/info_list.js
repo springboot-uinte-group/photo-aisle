@@ -239,7 +239,8 @@ function statuFun(c,o,r) {
 		}
 
 function imageFun(c,o,r) {
-	return "<img src='"+baseUrl+c+"' style='width:300px;height:auto;' alt='图片不能显示..' class='img-thumbnail text-center'>";
+	var preview = getPreview(c);
+	return "<img src='"+preview+"' style='width:300px;height:auto;' alt='图片不能显示..' class='img-thumbnail text-center'>";
 }
 		$(document).one('ajaxloadstart.page', function(e) {
 			$(grid_selector).jqGrid('GridUnload');
@@ -274,3 +275,15 @@ function imageFun(c,o,r) {
 		$(window.parent.document).find("#iframepage_"+priviledgeId).height(document.body.scrollHeight);
 	
 });
+
+function getPreview(path) {
+	var preview;
+	var sym = "\\";
+	if (path !== null && path != undefined) {
+		var paths = path.split(sym);
+		var fileName = paths[paths.length - 1];
+		var sub = paths[paths.length - 2];
+		preview = "/imgview/preview?path=" + sub + "&fileName=" + fileName;
+	}
+	return preview;
+}

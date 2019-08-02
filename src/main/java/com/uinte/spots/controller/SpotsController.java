@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uinte.common.util.OperationFileUtil;
+import com.uinte.common.util.StaticConfigurationItem;
 import com.uinte.model.TSpots;
 import com.uinte.spots.service.ISpotsService;
 import com.uinte.vo.PageVO;
@@ -51,8 +52,8 @@ public class SpotsController {
 		returnResult.setStatus(ReturnCodeType.FAILURE);
 		try {
 
-			Map<String, String> map = OperationFileUtil.multiFileUpload(request,
-					request.getServletContext().getRealPath("/") + "uploads/spots/");
+			String sub = StaticConfigurationItem.SPOTS;
+			Map<String, String> map = OperationFileUtil.multiFileUpload(request, sub);
 			String filePath = "";
 			for (Map.Entry<String, String> entry : map.entrySet()) {
 				filePath = entry.getValue();

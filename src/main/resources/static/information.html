@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" href="favicon.ico" type="image/x-icon" />
 		<title>光艺摄影</title>
-		<meta name="author" content="design by www.gzvtc.cc" />
+		<meta name="author" content="design by la" />
 		<meta name="viewport" content="width=1200, user-scalable=no, target-densitydpi=device-dpi" />
 		<meta name="keywords" content="" />
 		<meta name="description" content="" />
@@ -22,6 +21,11 @@
 		<!--[if lt IE 7]>
 		<script type="text/javascript" src="statics/js/pngfix.js"></script>
 		<![endif]-->
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#footer").load("./footer/footer.html");
+			});
+		</script>
 	</head>
 
 	<body>
@@ -42,22 +46,22 @@
 							<i></i>
 							<a href='wedding.html'>
 
-								<span class='s-all'>客片欣赏<span class='s-en'>Wedding</span></span>
+								<span class='s-all'>摄影故事<span class='s-en'>Wedding</span></span>
 							</a>
 						</li>
 
-						<li>
+					<!-- 	<li>
 							<i></i>
 							<a href='photoer.html'>
 
 								<span class='s-all'>选摄影师<span class='s-en'>Photographer</span></span>
 							</a>
-						</li>
+						</li> -->
 						<li>
 							<i></i>
 							<a href='spots.html'>
 
-								<span class='s-all'>拍摄景点<span class='s-en'>Spots</span></span>
+								<span class='s-all'>去过的地方<span class='s-en'>Spots</span></span>
 							</a>
 						</li>
 						<li class='tip'>
@@ -68,7 +72,7 @@
 							</a>
 						</li>
 
-						<li><i></i>
+						<!-- <li><i></i>
 							<a href="brand.html"><span class="s-all">品牌<span class="s-en">Brand</span></span>
 							</a>
 						</li>
@@ -76,7 +80,7 @@
 							<a href="member.html"><span class="s-all">会员<span class="s-en">Member</span></span>
 							</a>
 							<i class="last"></i>
-						</li>
+						</li> -->
 					</ul>
 				</div>
 			</div>
@@ -88,23 +92,31 @@
 			</div>
 		</div>
 		<div id="info"></div>
-		<div class="footer-wrap mar-t20">
-			<div class="copyright">
-				<a href="http://www.miibeian.gov.cn" style="color: #fff; text-decoration: underline;">粤ICP备10000001号</a> &nbsp;<a href="http://blog.gzvtc.cc" style="color: #fff; text-decoration: underline;">梦工程工作室出品 -gzgchzc</a></a><br /> @ 2017 GZVTC.CC &nbsp;
-			</div>
-		</div>
+		<div id="footer"></div>
 		<script>
 		var baseUrl = location.protocol  +"//"+location.host+"/";
 			$.post("/getAllInfo", {}, function(data) {
 				if(data.status == 0) {
 					var result="";
 					$.each(data.data, function(i, item) {
-					result+="<a href='info.html?id=" + item.id + "' target='_blank' style='display: block;margin-bottom: 50px;'><div class='w1200 clearfix'><img src='"+baseUrl+item.path+"' width='100%' /></div></a>";
-					
+						var preview = getPreview(item.path);
+						result+="<a href='info.html?id=" + item.id + "' target='_blank' style='display: block;margin-bottom: 50px;'><div class='w1200 clearfix'><img src='"+preview+"' width='100%' /></div></a>";
 					});
 					$("#info").html(result);
 				}
 			});
+			
+			function getPreview(path) {
+				var preview;
+				var sym = "\\";
+				if (path !== null && path != undefined) {
+					var paths = path.split(sym);
+					var fileName = paths[paths.length - 1];
+					var sub = paths[paths.length - 2];
+					preview = "/imgview/preview?path=" + sub + "&fileName=" + fileName;
+				}
+				return preview;
+			}
 		</script>
 	</body>
 

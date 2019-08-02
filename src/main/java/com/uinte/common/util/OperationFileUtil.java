@@ -25,14 +25,12 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 /**
  * @Description 操作文件工具类
- * @author LJ
+ * @author admin
  * @Date 2016年6月8日 上午11:42:44
- * @Version v1.0
+ * 
  */
 public final class OperationFileUtil {
 	private static final String ENCODING = "utf-8";
-
-	private static final String BASE_PATH = "F://photoDir//";
 
 	/**
 	 * 文件下载
@@ -45,6 +43,11 @@ public final class OperationFileUtil {
 	public static ResponseEntity<byte[]> download(String filePath) throws UnsupportedEncodingException, IOException {
 		String fileName = FilenameUtils.getName(filePath);
 		return downloadAssist(filePath, fileName);
+	}
+
+	public static byte[] downloadFile(String filePath) throws UnsupportedEncodingException, IOException {
+		String fileName = FilenameUtils.getName(filePath);
+		return getDownloadFileBytes(filePath, fileName);
 	}
 
 	/**
@@ -82,6 +85,14 @@ public final class OperationFileUtil {
 		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
 	}
 
+	private static byte[] getDownloadFileBytes(String filePath, String fileName) throws UnsupportedEncodingException, IOException {
+		File file = new File(filePath);
+		if (file != null && file.exists() && file.isFile()) {
+			return FileUtils.readFileToByteArray(file);
+		}
+		return null;
+	}
+
 	/**
 	 * 多文件上传
 	 * 
@@ -91,13 +102,10 @@ public final class OperationFileUtil {
 	 * @throws IllegalStateException
 	 * @return Map<String, String> 返回上传文件的保存路径 以文件名做map的key;文件保存路径作为map的value
 	 */
-	public static Map<String, String> multiFileUpload(HttpServletRequest request, String basePath)
+	public static Map<String, String> multiFileUpload(HttpServletRequest request, String subPath)
 			throws IllegalStateException, IOException {
-		if (!(new File(basePath).isDirectory())) {
-//            throw new IllegalArgumentException("basePath 参数必须是文件夹路径"+basePath);
-			basePath = BASE_PATH;
-		}
-		return multifileUploadAssist(request, basePath, null);
+		String path = UploadTools.createDirectoryByRoot(subPath);
+		return multifileUploadAssist(request, path, null);
 	}
 
 	/**
@@ -110,14 +118,10 @@ public final class OperationFileUtil {
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	public static Map<String, String> multiFileUpload(HttpServletRequest request, String basePath, String exclude)
+	public static Map<String, String> multiFileUpload(HttpServletRequest request, String subPath, String exclude)
 			throws IllegalStateException, IOException {
-		if (!(new File(basePath).isDirectory())) {
-//          throw new IllegalArgumentException("basePath 参数必须是文件夹路径"+basePath);
-			basePath = BASE_PATH;
-		}
-
-		return multifileUploadAssist(request, basePath, exclude);
+		String path = UploadTools.createDirectoryByRoot(subPath);
+		return multifileUploadAssist(request, path, exclude);
 	}
 
 	/**
@@ -150,8 +154,10 @@ public final class OperationFileUtil {
 				for (MultipartFile multipartFile : multipartFiles) {
 					String fileName = multipartFile.getOriginalFilename();
 					if (StringUtils.isNotEmpty(fileName) && (!exclude.contains(fileName))) {
-						file = new File(basePath + changeFilename2UUID(fileName));
-						filePaths.put(fileName, file.getPath());
+						String finalFileName = changeFilename2UUID(fileName);
+						file = new File(basePath + File.separator + finalFileName);
+//						filePaths.put(fileName, file.getPath());
+						filePaths.put(fileName, file.getPath().replace(StaticConfigurationItem.UPLOAD_BOOT_DIR, ""));
 						multipartFile.transferTo(file);
 					}
 				}

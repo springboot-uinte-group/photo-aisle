@@ -21,6 +21,11 @@
 		<!--[if lt IE 7]>
 		<script type="text/javascript" src="statics/js/pngfix.js"></script>
 		<![endif]-->
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#footer").load("./footer/footer.html");
+			});
+		</script>
 	</head>
 
 	<body>
@@ -91,12 +96,7 @@
 			</div>
 		</div>
 
-		
-		<div class="footer-wrap ">
-			<div class="copyright">
-				<a href="http://www.miibeian.gov.cn" style="color: #fff; text-decoration: underline;">粤ICP备10000001号</a> &nbsp;<a href="http://blog.gzvtc.cc" style="color: #fff; text-decoration: underline;">梦工程工作室出品 -gzgchzc</a></a><br /> @ 2017 GZVTC.CC &nbsp;
-			</div>
-		</div>
+		<div id="footer"></div>
 		<script>
 			var baseUrl = location.protocol  +"//"+location.host+"/";
 		var LocString = String(window.document.location.href);  
@@ -114,9 +114,22 @@
 				$("#title").html(data.data.title);
 				$("#content").html(data.data.content);
 				$("#createTime").html(new Date(data.data.createtime).format("yyyy-MM-dd"));
-				$("#path").attr({src:baseUrl+data.data.path});
+				var preview = getPreview(data.data.path);
+				$("#path").attr({src:preview});
 			}
 		});
+		
+		function getPreview(path) {
+			var preview;
+			var sym = "\\";
+			if (path !== null && path != undefined) {
+				var paths = path.split(sym);
+				var fileName = paths[paths.length - 1];
+				var sub = paths[paths.length - 2];
+				preview = "/imgview/preview?path=" + sub + "&fileName=" + fileName;
+			}
+			return preview;
+		}
 		</script>
 	</body>
 

@@ -140,7 +140,7 @@ require(['jquery','jqGrid','zDialog','jqtips','jqueryForm','chosen','jqValidate'
 			$(window.parent.document).find("#iframepage_"+priviledgeId).height(document.body.scrollHeight);
 		})
 		jQuery(grid_selector).jqGrid({
-			url : "/getWorksListByPage",
+			url : "/getWorksListByPage?status=0",
 			datatype : "json",
 			mtype : "post",
 			jsonReader : {   
@@ -234,7 +234,16 @@ require(['jquery','jqGrid','zDialog','jqtips','jqueryForm','chosen','jqValidate'
 			});
 		}
 		function imageFun(c,o,r) {
-			return "<img src='"+baseUrl+c+"' style='width:100px;height:auto;' alt='图片不能显示..' class='img-thumbnail text-center'>";
+			var preview;
+			if(c !== null && c != undefined) {
+				var paths = c.split("\\");
+				console.info(c + " length:" + paths.length);
+				var fileName = paths[paths.length-1];
+				var sub = paths[paths.length-2];
+				preview = "/imgview/preview?path=" + sub+"&fileName="+ fileName;
+			}
+			
+			return "<img src='"+preview+"' style='width:100px;height:auto;' alt='图片不能显示..' class='img-thumbnail text-center'>";
 		}			
 		function userTypeFun(c,o,r) {
 			if(c==0) {

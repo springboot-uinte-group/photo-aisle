@@ -27,6 +27,11 @@
 			#ullist{float: left;margin-left: 20px;color: #999;}
 			#ullist li{margin: 5px;}
 		</style>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#footer").load("./footer/footer.html");
+			});
+		</script>
 	</head>
 
 	<body>
@@ -107,11 +112,7 @@
 		<div class="w1200 clearfix">
 			<p id="content"></p>
 		</div>
-		<div class="footer-wrap ">
-			<div class="copyright">
-				<a href="http://www.miibeian.gov.cn" style="color: #fff; text-decoration: underline;">粤ICP备10000001号</a> &nbsp;<a href="http://blog.gzvtc.cc" style="color: #fff; text-decoration: underline;">梦工程工作室出品 -gzgchzc</a></a><br /> @ 2017 GZVTC.CC &nbsp;
-			</div>
-		</div>
+		<div id="footer"></div>
 		<script>
 		var baseUrl = location.protocol  +"//"+location.host+"/";
 		var LocString = String(window.document.location.href);  
@@ -130,12 +131,26 @@
 				$("#spots").append(data.data.spots);
 				$("#createTime").append(data.data.createTime);
 				$("#content").html(data.data.content);
-				$("#path").attr("src",baseUrl+data.data.path);
+				var preview = getPreview(data.data.path);
+				$("#path").attr("src",preview);
 				$.each(data.data.imgs, function(i,item) {
-					$("#photo").append('<img src="'+baseUrl+item.path+'" />');
+					var preview = getPreview(item.path);
+					$("#photo").append('<img src="'+preview+'" />');
 				});
 			}
 		})
+		
+		function getPreview(path){
+				var preview;
+				if(path !== null && path != undefined) {
+					var paths = path.split("\\");
+					console.info(path + " length:" + paths.length);
+					var fileName = paths[paths.length-1];
+					var sub = paths[paths.length-2];
+					preview = "/imgview/preview?path=" + sub+"&fileName="+ fileName;
+				}
+				return preview;
+			} 
 		</script>
 	</body>
 

@@ -131,12 +131,12 @@ body {
 }
 .logo {
 	float: left;
-	margin-top: 21px;
+	margin-top: 20px;
 	
 	width: 215px;
 	height: 55px;
 	background: url(../images/logo.png) 0 0 no-repeat;
-	background-size: 215px 55px;
+	background-size: 89px 46px;
 	text-indent: -9999px;
 	outline: none;
 }
@@ -343,8 +343,8 @@ body {
 	white-space: nowrap;
 }
 .footer-wrap {
-	padding: 20px 0;
-	background: #8fd0ca;
+	padding: 10px 0;
+	background: #c0c0c0;
 }
 .copyright {
 	width: 1200px;

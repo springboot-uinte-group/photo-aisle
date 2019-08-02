@@ -180,7 +180,7 @@ require(['jquery','jqGrid','zDialog','jqtips','jqueryForm','chosen','jqValidate'
 						setTimeout(function() {
 							updateActionIcons(table);
 							updatePagerIcons(table); //更换分页的图标
-								enableTooltips(table);
+							enableTooltips(table);
 						}, 0);
 					},
 			gridComplete: function(){  //添加页面操作按钮
@@ -241,7 +241,23 @@ require(['jquery','jqGrid','zDialog','jqtips','jqueryForm','chosen','jqValidate'
 			});
 		}
 		function imageFun(c,o,r) {
-			return "<img src='"+baseUrl+c+"' style='width:100px;height:auto;' alt='图片不能显示..' class='img-thumbnail text-center'>";
+			var paths = c.split("\\");
+			console.info(c + " length:" + paths.length);
+			var fileName = paths[paths.length-1];
+			var sub = paths[paths.length-2];
+			var preview = "/imgview/preview?path=" + sub+"&fileName="+ fileName;
+			/*	$.get("/user/checkUserName",{name:$('#username').val()},function(data){
+					if(data.status!=0){
+						$("#username").tips({
+							side: 3,
+							msg: '用户名已存在',
+							bg: '#AE81FF',
+							time: 3
+						});
+					}
+				});*/
+//			return $("<img src='"+preview+"' style='width:100px;height:auto;' alt='图片不能显示..' class='img-thumbnail text-center'>").attr("src",preview); 
+			return "<img src='"+preview+"' style='width:100px;height:auto;' alt='图片不能显示..' class='img-thumbnail text-center'>";
 		}			
 		function userTypeFun(c,o,r) {
 			if(c==0) {

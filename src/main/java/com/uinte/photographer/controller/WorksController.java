@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uinte.common.util.OperationFileUtil;
+import com.uinte.common.util.StaticConfigurationItem;
 import com.uinte.model.TAttachment;
 import com.uinte.model.TWorks;
 import com.uinte.photographer.service.IAttachmentService;
@@ -56,11 +57,15 @@ public class WorksController {
 	public ReturnResult addWorks(TWorks works, HttpServletRequest request) {
 		returnResult.setStatus(ReturnCodeType.FAILURE);
 		try {
-
-			Map<String, String> map = OperationFileUtil.multiFileUpload(request,
-					request.getServletContext().getRealPath("/") + "uploads/images/");
-			
+			String sub = StaticConfigurationItem.WORKS;
+			Map<String, String> map = OperationFileUtil.multiFileUpload(request, sub);
+			String filePath = "";
+			for (Map.Entry<String, String> entry : map.entrySet()) {
+				filePath = entry.getValue();
+			}
+			filePath = filePath.replace(request.getServletContext().getRealPath("/"), "/");
 			works.setCreatetime(new Date());
+			works.setPath(filePath);
 			worksService.insert(works);
 			//插入附件
 			int worksId = works.getId();

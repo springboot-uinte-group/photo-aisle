@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uinte.common.util.OperationFileUtil;
+import com.uinte.common.util.StaticConfigurationItem;
 import com.uinte.model.TPhotographer;
 import com.uinte.model.TPhotographerLabel;
 import com.uinte.model.TPhotographerLevel;
@@ -64,9 +65,8 @@ public class PhotographerController {
 			Integer levelId, Integer spotsId) {
 		returnResult.setStatus(ReturnCodeType.FAILURE);
 		try {
-			String subDir = "uploads\\photographer\\";
-			Map<String, String> map = OperationFileUtil.multiFileUpload(request,
-					request.getServletContext().getRealPath("/") + subDir);
+			String sub = StaticConfigurationItem.PHOTOGRAPHER;
+			Map<String, String> map = OperationFileUtil.multiFileUpload(request, sub);
 			String filePath = "";
 			for (Map.Entry<String, String> entry : map.entrySet()) {
 				filePath = entry.getValue();

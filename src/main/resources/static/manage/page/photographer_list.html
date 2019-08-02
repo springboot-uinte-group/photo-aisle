@@ -28,97 +28,95 @@
 <!--[if lte IE 9]>
 		  <link rel="stylesheet" href="../assets/css/ace-ie.css" />
 		<![endif]-->
-    <!--<link rel="stylesheet" href="../assets/css/page_list.css"/>-->
-    <style>
-    	form.form-horizontal > div {
-    margin-bottom: 15px;
-    height: 34px;
+<!--<link rel="stylesheet" href="../assets/css/page_list.css"/>-->
+<style>
+form.form-horizontal>div {
+	margin-bottom: 15px;
+	height: 34px;
 }
-    </style>
+</style>
 </head>
 
 <body class="no-skin">
 	<div class="main-container" id="main-container">
 		<div class="main-content">
 			<div class="page-content">
-                <div class="widget-container-col ui-sortable">
-                    <div class="widget-box transparent ui-sortable-handle search-box" style="border: 1px dotted #DCE8F1;">
-                        <div class="widget-header">
-                            <h5 class="widget-title">查询条件
-                                <small>
-                                    <i class="ace-icon fa fa-angle-double-right"></i>
-                                    摄影师管理
-                                </small>
-                            </h5>
-                            <!-- 增加no-border类 -->
-                            <div class="widget-toolbar no-border">
-                                <a href="#" data-action="collapse"> <i class="1 ace-icon fa bigger-125 fa-chevron-up"></i>
-                                </a>
-                            </div>
-                        </div>
+				<div class="widget-container-col ui-sortable">
+					<div class="widget-box transparent ui-sortable-handle search-box"
+						style="border: 1px dotted #DCE8F1;">
+						<div class="widget-header">
+							<h5 class="widget-title">
+								查询条件 <small> <i
+									class="ace-icon fa fa-angle-double-right"></i> 摄影师管理
+								</small>
+							</h5>
+							<!-- 增加no-border类 -->
+							<div class="widget-toolbar no-border">
+								<a href="#" data-action="collapse"> <i
+									class="1 ace-icon fa bigger-125 fa-chevron-up"></i>
+								</a>
+							</div>
+						</div>
 						<div class="widget-body" style="display: block;">
 							<div class="widget-main">
 								<div class="row">
 									<form id="studentSearchForm" class="form-horizontal">
-												<div class="col-md-2 col-sm-3 col-xs-6">
-													<input type="text" class="form-control" id="name" name="name"
-														placeholder="摄影师名字">
-												</div>
-												
-												<div class="col-md-2 col-sm-3 col-xs-6">
-													<select class="chosen-select form-control" id="label" name="label"
-														data-placeholder="标签">
-														<option value=""></option>
-														
-													</select>
-												</div>
-												<div class="col-md-2 col-sm-3 col-xs-6">
-													<select class="chosen-select form-control" id="level" name="level"
-														data-placeholder="级别">
-														<option value=""></option>
-														
-													</select>
-												</div>
-												<div class="col-md-2 col-sm-3 col-xs-6">
-													<select class="chosen-select form-control" id="spots" name="spots"
-														data-placeholder="常驻馆">
-														<option value=""></option>
-														
-													</select>
-												</div>
-												  <div class="col-md-2 col-sm-3 col-xs-6">
-                                        <select class="chosen-select form-control" id="status" name="status"
-                                                data-placeholder="状态">
-                                            <option value=""></option>
-                                            <option value="0">启用</option>
-                                            <option value="1">禁用</option>
-                                        </select>
-                                    </div>
-											<div class="col-md-2 col-sm-3 col-xs-6">
-													<a id="searchButton" role="button"
-														class="btn btn-success btn-sm">
-                                                        <i class="ace-icon glyphicon glyphicon-search"></i>查询
-													</a>
-											</div>
+										<div class="col-md-2 col-sm-3 col-xs-6">
+											<input type="text" class="form-control" id="name" name="name"
+												placeholder="摄影师名字">
+										</div>
+
+										<div class="col-md-2 col-sm-3 col-xs-6">
+											<select class="chosen-select form-control" id="label"
+												name="label" data-placeholder="标签">
+												<option value=""></option>
+
+											</select>
+										</div>
+										<div class="col-md-2 col-sm-3 col-xs-6">
+											<select class="chosen-select form-control" id="level"
+												name="level" data-placeholder="级别">
+												<option value=""></option>
+
+											</select>
+										</div>
+										<div class="col-md-2 col-sm-3 col-xs-6">
+											<select class="chosen-select form-control" id="spots"
+												name="spots" data-placeholder="常驻馆">
+												<option value=""></option>
+
+											</select>
+										</div>
+										<div class="col-md-2 col-sm-3 col-xs-6">
+											<select class="chosen-select form-control" id="status"
+												name="status" data-placeholder="状态">
+												<option value=""></option>
+												<option value="0">启用</option>
+												<option value="1">禁用</option>
+											</select>
+										</div>
+										<div class="col-md-2 col-sm-3 col-xs-6">
+											<a id="searchButton" role="button"
+												class="btn btn-success btn-sm"> <i
+												class="ace-icon glyphicon glyphicon-search"></i>查询
+											</a>
+										</div>
 									</form>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
- 
-				
+
+
 				<div class="form-actions center">
-                <a id="addButton" role="button"
-                   class="btn btn-info"> <i
-                        class="ace-icon fa  fa-plus-circle"></i>新增
-                </a>
-            </div>
- 			<div class="space-6"></div>
+					<a id="addButton" role="button" class="btn btn-info"> <i
+						class="ace-icon fa  fa-plus-circle"></i>新增
+					</a>
+				</div>
+				<div class="space-6"></div>
 				<div>
-                    <div class="table-header">
-                        查询结果
-                    </div>
+					<div class="table-header">查询结果</div>
 					<table id="grid-table"></table>
 					<div id="grid-pager"></div>
 				</div>
@@ -129,8 +127,7 @@
 
 	<script type="text/javascript">
 		if ('ontouchstart' in document.documentElement)
-			document.write("<script src='../assets/js/jquery.mobile.custom.js'>"
-					+ "<"+"/script>");
+			document .write("<script src='../assets/js/jquery.mobile.custom.js'>" + "<"+"/script>");
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery1x.js"></script>
 	<script type="text/javascript" src="../assets/js/bootstrap.js"></script>
@@ -140,19 +137,21 @@
 	<script src="../js/require.js" data-main="../js/photographer_list"></script>
 	<script type="text/javascript" src="../assets/js/zDrag.js"></script>
 	<script type="text/javascript" src="../assets/js/zDialog.js"></script>
-	<script type="text/javascript" src="../assets/js/iframeResizer.contentWindow.min.js" ></script>
+	<script type="text/javascript"
+		src="../assets/js/iframeResizer.contentWindow.min.js"></script>
 	<script type="text/javascript">
-	var baseUrl = location.protocol  +"//"+location.host+"/";
-	var LocString = String(window.document.location.href);  
-	function getQueryStr(str) { 
-	        var rs = new RegExp("(^|)" + str + "=([^&]*)(&|$)", "gi").exec(LocString), tmp; 
-	        if (tmp = rs) { 
-	         return tmp[2]; 
-	        } 
-	        return ""; 
-	}  
-	var priviledgeId = getQueryStr("id");
-	function isChecked(status, rowId) {
+		var baseUrl = location.protocol + "//" + location.host + "/";
+		var LocString = String(window.document.location.href);
+		function getQueryStr(str) {
+			var rs = new RegExp("(^|)" + str + "=([^&]*)(&|$)", "gi")
+					.exec(LocString), tmp;
+			if (tmp = rs) {
+				return tmp[2];
+			}
+			return "";
+		}
+		var priviledgeId = getQueryStr("id");
+		function isChecked(status, rowId) {
 			var statusVal = 1;
 			if (status.checked) {
 				statusVal = 0;
@@ -163,66 +162,65 @@
 
 			});
 		}
-	//修改操作
-	function editRow(id)  {
-		var diag = new top.Dialog();
-		diag.Drag=true;
-		diag.Title ="摄影师信息修改";
-		diag.URL = baseUrl+'/manage/page/photographer_edit.html?id='+id;
-		diag.Width = 700;
-		diag.Height = 500;
-		diag.CancelEvent = function(){ //关闭事件，关闭时，可以刷新表单
-			 $("#grid-table").trigger("reloadGrid"); 
-			 diag.close();
+		//修改操作
+		function editRow(id) {
+			var diag = new top.Dialog();
+			diag.Drag = true;
+			diag.Title = "摄影师信息修改";
+			diag.URL = baseUrl + '/manage/page/photographer_edit.html?id=' + id;
+			diag.Width = 700;
+			diag.Height = 500;
+			diag.CancelEvent = function() { //关闭事件，关闭时，可以刷新表单
+				$("#grid-table").trigger("reloadGrid");
+				diag.close();
+			}
+			diag.show();
 		}
-		diag.show();
-	}
-	
-	//设置操作
-	function setRow(id)  {
-		var diag = new top.Dialog();
-		diag.Drag=true;
-		diag.Title ="合同问题设置";
-		diag.URL = baseUrl+'/manage/page/contract_set.html?id='+id;
-		diag.Width = 1000;
-		diag.Height = 768;
-		diag.CancelEvent = function(){ //关闭事件，关闭时，可以刷新表单
-			 $("#grid-table").trigger("reloadGrid"); 
-			 diag.close();
+
+		//设置操作
+		function setRow(id) {
+			var diag = new top.Dialog();
+			diag.Drag = true;
+			diag.Title = "合同问题设置";
+			diag.URL = baseUrl + '/manage/page/contract_set.html?id=' + id;
+			diag.Width = 1000;
+			diag.Height = 768;
+			diag.CancelEvent = function() { //关闭事件，关闭时，可以刷新表单
+				$("#grid-table").trigger("reloadGrid");
+				diag.close();
+			}
+			diag.show();
 		}
-		diag.show();
-	}
-	
-	//设置操作
-	function setIcon(id)  {
-		var diag = new top.Dialog();
-		diag.Drag=true;
-		diag.Title ="Icon设置";
-		diag.URL = baseUrl+'/manage/page/setIcon.html?id='+id;
-		diag.Width = 750;
-		diag.Height = 768;
-		diag.CancelEvent = function(){ //关闭事件，关闭时，可以刷新表单
-			 $("#grid-table").trigger("reloadGrid"); 
-			 diag.close();
+
+		//设置操作
+		function setIcon(id) {
+			var diag = new top.Dialog();
+			diag.Drag = true;
+			diag.Title = "Icon设置";
+			diag.URL = baseUrl + '/manage/page/setIcon.html?id=' + id;
+			diag.Width = 750;
+			diag.Height = 768;
+			diag.CancelEvent = function() { //关闭事件，关闭时，可以刷新表单
+				$("#grid-table").trigger("reloadGrid");
+				diag.close();
+			}
+			diag.show();
 		}
-		diag.show();
-	}
-	
-	//查看
-	function viewRow(id)  {
-		var diag = new top.Dialog();
-		diag.Drag=true;
-		diag.Title ="合同信息查看";
-		diag.URL = baseUrl+'/manage/page/contract_content.html?id='+id;
-		diag.Width = 1000;
-		diag.Height = 1000;
-		diag.CancelEvent = function(){ //关闭事件，关闭时，可以刷新表单
-			 $("#grid-table").trigger("reloadGrid"); 
-			 diag.close();
+
+		//查看
+		function viewRow(id) {
+			var diag = new top.Dialog();
+			diag.Drag = true;
+			diag.Title = "合同信息查看";
+			diag.URL = baseUrl + '/manage/page/contract_content.html?id=' + id;
+			diag.Width = 1000;
+			diag.Height = 1000;
+			diag.CancelEvent = function() { //关闭事件，关闭时，可以刷新表单
+				$("#grid-table").trigger("reloadGrid");
+				diag.close();
+			}
+			diag.show();
 		}
-		diag.show();
-	}
-	
 	</script>
 </body>
 </html>

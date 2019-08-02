@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uinte.common.util.OperationFileUtil;
+import com.uinte.common.util.StaticConfigurationItem;
 import com.uinte.info.service.IInfoService;
 import com.uinte.model.TInfomation;
 import com.uinte.vo.PageVO;
@@ -52,8 +53,8 @@ public class InfoController {
 		returnResult.setStatus(ReturnCodeType.FAILURE);
 		try {
 
-			Map<String, String> map = OperationFileUtil.multiFileUpload(request,
-					request.getServletContext().getRealPath("/") + "uploads/info/");
+			String sub = StaticConfigurationItem.INFO;
+			Map<String, String> map = OperationFileUtil.multiFileUpload(request, sub);
 			String filePath = "";
 			for (Map.Entry<String, String> entry : map.entrySet()) {
 				filePath = entry.getValue();

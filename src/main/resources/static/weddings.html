@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
-<title>光艺摄影</title>
+<title>摄影故事</title>
 <meta name="author" content="design by www.gzvtc.cc" />
 <meta name="viewport"
 	content="width=1200, user-scalable=no, target-densitydpi=device-dpi" />
@@ -28,6 +28,11 @@
 <!--[if lt IE 7]>
 		<script type="text/javascript" src="statics/js/pngfix.js"></script>
 		<![endif]-->
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#footer").load("./footer/footer.html");
+			});
+		</script>
 </head>
 
 <body>
@@ -101,11 +106,7 @@
 	<div class="w1200" id="works">
 		
 	</div>
-	<div class="footer-wrap mar-t20">
-		<div class="copyright">
-			<a href="http://www.miibeian.gov.cn" style="color: #fff; text-decoration: underline;">粤ICP备10000001号</a> &nbsp;<a href="http://blog.gzvtc.cc" style="color: #fff; text-decoration: underline;">梦工程工作室出品 -gzgchzc</a></a><br /> @ 2017 GZVTC.CC &nbsp;
-		</div>
-	</div>
+	<div id="footer"></div>
 	<script>
 		var LocString = String(window.document.location.href); 
 		var baseUrl = location.protocol + "//" + location.host + "/";
@@ -125,13 +126,25 @@
 				$("#content").html(data.data.content);
 				$("#worksTitle").html(data.data.worksTitle);
 				$(".depho_img").attr("href","photographer.html?id="+data.data.id);
-				$(".depho_img img").attr("src",baseUrl+data.data.path);
+				$(".depho_img img").attr("src",getPreview(data.data.path));
 				$.each(data.data.imgs,function(i,item){
-					var works = '<div class="mt20" style="width: 1200px;"> <img src="'+baseUrl+item.path+'" width="100%"> </div>'
+					var works = '<div class="mt20" style="width: 1200px;"> <img src="'+getPreview(item.path)+'" width="100%"> </div>'
 					$("#works").append(works);
 				})
 			}
 		});
+		
+		function getPreview(path){
+			var preview;
+			if(path !== null && path != undefined) {
+				var paths = path.split("\\");
+				console.info(path + " length:" + paths.length);
+				var fileName = paths[paths.length-1];
+				var sub = paths[paths.length-2];
+				preview = "/imgview/preview?path=" + sub+"&fileName="+ fileName;
+			}
+			return preview;
+		}
 		
 	</script>
 </body>

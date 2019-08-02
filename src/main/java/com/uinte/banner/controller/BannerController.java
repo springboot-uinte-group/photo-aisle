@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uinte.banner.service.IBannerService;
 import com.uinte.common.util.OperationFileUtil;
+import com.uinte.common.util.StaticConfigurationItem;
 import com.uinte.model.TBanner;
 import com.uinte.vo.PageVO;
 import com.uinte.vo.ReturnCodeType;
@@ -50,9 +51,8 @@ public class BannerController {
 	public ReturnResult addBanner(TBanner banner, HttpServletRequest request) {
 		returnResult.setStatus(ReturnCodeType.FAILURE);
 		try {
-
-			Map<String, String> map = OperationFileUtil.multiFileUpload(request,
-					request.getServletContext().getRealPath("/") + "uploads/banner/");
+			String sub = StaticConfigurationItem.BANNER;
+			Map<String, String> map = OperationFileUtil.multiFileUpload(request, sub);
 			String filePath = "";
 			for (Map.Entry<String, String> entry : map.entrySet()) {
 				filePath = entry.getValue();

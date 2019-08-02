@@ -22,6 +22,11 @@
 		<!--[if lt IE 7]>
 		<script type="text/javascript" src="statics/js/pngfix.js"></script>
 		<![endif]-->
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#footer").load("./footer/footer.html");
+			});
+		</script>
 	</head>
 
 	<body>
@@ -118,11 +123,7 @@
 	        	<p class="mar-t20">028-00000000</p>
 	        </div>
 		</div>
-		<div class="footer-wrap ">
-			<div class="copyright">
-				<a href="http://www.miibeian.gov.cn" style="color: #fff; text-decoration: underline;">粤ICP备10000001号</a> &nbsp;<a href="http://blog.gzvtc.cc" style="color: #fff; text-decoration: underline;">梦工程工作室出品 -gzgchzc</a></a><br /> @ 2017 GZVTC.CC &nbsp;
-			</div>
-		</div>
+		<div id="footer"></div>
 	</body>
 
 </html>

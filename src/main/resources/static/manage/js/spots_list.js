@@ -230,7 +230,12 @@ function statuFun(c,o,r) {
 		}
 
 function imageFun(c,o,r) {
-	return "<img src='"+baseUrl+c+"' style='width:300px;height:auto;' alt='图片不能显示..' class='img-thumbnail text-center'>";
+	var paths = c.split("\\");
+	console.info(c + " length:" + paths.length);
+	var fileName = paths[paths.length-1];
+	var sub = paths[paths.length-2];
+	var preview = "/imgview/preview?path=" + sub+"&fileName="+ fileName;
+	return "<img src='"+preview+"' style='width:300px;height:auto;' alt='图片不能显示..' class='img-thumbnail text-center'>";
 }
 		$(document).one('ajaxloadstart.page', function(e) {
 			$(grid_selector).jqGrid('GridUnload');

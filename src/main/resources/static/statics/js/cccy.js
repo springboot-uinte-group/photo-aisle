@@ -1,6 +1,4 @@
 ﻿$(function() {
-	
-
 	var baseUrl = location.protocol + "//" + location.host + "/";
 	$.post("/getAllBanner", {
 		page: 1,
@@ -8,22 +6,29 @@
 	}, function(data) {
 		if(data.status == 0) {
 			$.each(data.data.rows, function(i, item) {
+				var preview = getPreview(item.path);
 				switch(i) {
 					case 0:
 						$("#banner1").attr({
-							src: baseUrl + item.path,
+							src: preview,
 							title: item.title
 						});
 						break;
 					case 1:
 						$("#banner2").attr({
-							src: baseUrl + item.path,
+							src: preview,
 							title: item.title
 						});
 						break;
 					case 2:
 						$("#banner3").attr({
-							src: baseUrl + item.path,
+							src: preview,
+							title: item.title
+						});
+						break;
+					case 3:
+						$("#banner4").attr({
+							src: preview,
 							title: item.title
 						});
 						break;
@@ -37,15 +42,13 @@
 			var scroll = "";
 			var btn = "";
 			$.each(data.data, function(i, item) {
-
-				scroll += "<li><a href='info.html?id=" + item.id + "' target='_blank'> <img width='588' height='365' src='" + baseUrl + item.path + "'></a></li>";
-
+				var preview = getPreview(item.path);
+				scroll += "<li><a href='info.html?id=" + item.id + "' target='_blank'> <img width='588' height='365' src='" + preview + "'></a></li>";
 				btn += "<li";
 				if(i == 0) {
 					btn += " class='on'"
 				}
 				btn += "><a href='info.html?id=" + item.id + "' target='_blank'> <dfn>0" + (i + 1) + "</dfn><div class='play-txt'><div class='txt-con'><h3>" + item.title + "</h3><span>POST TIME: " + item.createTime + "</span> </div><div class='seemore'><span>see more</span></div></div></a></li>";
-
 			});
 			$("#play-scroll").html(scroll);
 			$("#play-btn").html(btn);
@@ -62,9 +65,8 @@
 			var scroll = "";
 			var btn = "";
 			$.each(data.data, function(i, item) {
-
-				scroll += "<li><a href='spots.html' target='_blank'> <img width='855' height='520' src='"+baseUrl+item.path+"'></a></li>";
-
+				var preview = getPreview(item.path);
+				scroll += "<li><a href='spots.html' target='_blank'> <img width='855' height='520' src='"+preview+"'></a></li>";
 				btn += "<li";
 				if(i == 0) {
 					btn += " class='on'"
@@ -86,8 +88,9 @@
 					if(data.status == 0) {
 						var result = "";
 						$.each(data.data, function(i, item) {
+							var preview = getPreview(item.path);
 							if(i<4){
-							result += "<li><a href='works.html?id="+item.id+"' target='_blank'> <img src='" + baseUrl + item.path + "' /><div class='info-box'><div class='photos-txt clearfix'><h4>" + item.title + "</h4> </div><div class='photos-pt clearfix'> <i></i> <span>POST TIME: " + new Date(item.createTime).format("yyyy-MM-dd") + "</span> </div></div><div class='photos-shade'> <span></span><h4>" + item.title + "</h4></div></a></li>";
+								result += "<li><a href='works.html?id="+item.id+"' target='_blank'> <img src='" + preview + "' /><div class='info-box'><div class='photos-txt clearfix'><h4>" + item.title + "</h4> </div><div class='photos-pt clearfix'> <i></i> <span>POST TIME: " + new Date(item.createTime).format("yyyy-MM-dd") + "</span> </div></div><div class='photos-shade'> <span></span><h4>" + item.title + "</h4></div></a></li>";
 							}
 						});
 
@@ -101,7 +104,7 @@
 				});
 
 });
-//右侧拉条特效
+// 右侧拉条特效
 $(function() {
 	$(window).resize(function() {
 		goTop();
@@ -128,7 +131,7 @@ $(function() {
 	});
 });
 
-//广告大图自动翻
+// 广告大图自动翻
 $(function() {
 	(function() {
 		var curr = 0;
@@ -144,7 +147,7 @@ $(function() {
 		});
 
 		var pg = function(flag) {
-			//flag:true表示前翻， false表示后翻
+			// flag:true表示前翻， false表示后翻
 			if(flag) {
 				if(curr == 0) {
 					todo = 2;
@@ -157,25 +160,25 @@ $(function() {
 			$(".jsNav .trigger").eq(todo).click();
 		};
 
-		//前翻
+		// 前翻
 		$("#prev").click(function() {
 			pg(true);
 			return false;
 		});
 
-		//后翻
+		// 后翻
 		$("#next").click(function() {
 			pg(false);
 			return false;
 		});
 
-		//自动翻
+		// 自动翻
 		var timer = setInterval(function() {
 			todo = (curr + 1) % picLen;
 			$(".jsNav .trigger").eq(todo).click();
 		}, 5000);
 
-		//鼠标悬停在触发器上时停止自动翻
+		// 鼠标悬停在触发器上时停止自动翻
 		$(".jsNav a").hover(function() {
 				clearInterval(timer);
 			},
@@ -189,11 +192,11 @@ $(function() {
 	})();
 });
 
-//新闻、目的地动态图片切换
+// 新闻、目的地动态图片切换
 var cfg = {
-	"scroll": 500, //滚动时间
-	"stop": 3000, //停留时间
-	"num": 6 //图片数
+	"scroll": 500, // 滚动时间
+	"stop": 3000, // 停留时间
+	"num": 6 // 图片数
 };
 
 function run() {
@@ -246,11 +249,11 @@ $(function() {
 
 });
 
-//拍摄场景图片切换
+// 拍摄场景图片切换
 var cfg2 = {
-	"scroll": 500, //滚动时间
-	"stop": 3000, //停留时间
-	"num": 5 //图片数
+	"scroll": 500, // 滚动时间
+	"stop": 3000, // 停留时间
+	"num": 5 // 图片数
 };
 
 function run2() {
@@ -303,7 +306,7 @@ $(function() {
 	
 });
 
-//照片遮罩触发
+// 照片遮罩触发
 $(function() {
 	$(".C-photos-list a, .M-photos-list a").hover(function() {
 		$(this).find(".photos-shade").show();
@@ -326,7 +329,7 @@ $(function() {
 	});
 });
 
-//最新资讯自动翻
+// 最新资讯自动翻
 $(function() {
 	(function() {
 		var curr2 = 0;
@@ -342,7 +345,7 @@ $(function() {
 		});
 
 		var pg2 = function(flag) {
-			//flag:true表示前翻， false表示后翻
+			// flag:true表示前翻， false表示后翻
 			if(flag) {
 				if(curr2 == 0) {
 					todo2 = 2;
@@ -355,25 +358,25 @@ $(function() {
 			$(".jsNav2 .trigger2").eq(todo2).click();
 		};
 
-		//前翻
+		// 前翻
 		$(".jsNav2 #prev").click(function() {
 			pg2(true);
 			return false;
 		});
 
-		//后翻
+		// 后翻
 		$("jsNav2 #next").click(function() {
 			pg2(false);
 			return false;
 		});
 
-		//自动翻
+		// 自动翻
 		var timer2 = setInterval(function() {
 			todo2 = (curr2 + 1) % picLen2;
 			$(".jsNav2 .trigger2").eq(todo2).click();
 		}, 5000);
 
-		//鼠标悬停在触发器上时停止自动翻
+		// 鼠标悬停在触发器上时停止自动翻
 		$(".jsNav2 a").hover(function() {
 				clearInterval(timer2);
 			},
@@ -386,3 +389,15 @@ $(function() {
 		);
 	})();
 });
+
+function getPreview(path){
+	var preview;
+	if(path !== null && path != undefined) {
+		var paths = path.split("\\");
+		console.info(path + " length:" + paths.length);
+		var fileName = paths[paths.length-1];
+		var sub = paths[paths.length-2];
+		preview = "/imgview/preview?path=" + sub+"&fileName="+ fileName;
+	}
+	return preview;
+}
