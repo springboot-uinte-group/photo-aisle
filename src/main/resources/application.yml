@@ -1,6 +1,6 @@
 server:
-  port: 8080
-spring: 
+  port: 8088
+spring:
   http:
     multipart:
       max-file-size: 100MB
@@ -19,7 +19,12 @@ spring:
   mvc:
     view:
       suffix: .html
-  
+  redis:
+    remote: true #cachecloud 获取
+    host: 47.96.85.51
+    port: 6379
+    password: uinte.com
+    
 #连接池的配置信息
 ## 初始化大小，最小，最大
   druid:

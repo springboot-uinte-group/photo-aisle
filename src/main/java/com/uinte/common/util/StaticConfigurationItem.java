@@ -5,7 +5,7 @@ public interface StaticConfigurationItem {
 	/**
 	 * 文件上传根目录
 	 */
-	public static final String UPLOAD_BOOT_DIR = "F:\\photoDir";
+	public static final String UPLOAD_ROOT_DIR = "F:\\photoDir";
 
 	/**
 	 * 摄影师目录

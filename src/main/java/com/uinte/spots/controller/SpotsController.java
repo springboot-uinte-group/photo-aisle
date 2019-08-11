@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uinte.common.util.OperationFileUtil;
 import com.uinte.common.util.StaticConfigurationItem;
+import com.uinte.model.TInfomation;
 import com.uinte.model.TSpots;
+import com.uinte.photographer.service.IPhotographerSpotsService;
 import com.uinte.spots.service.ISpotsService;
 import com.uinte.vo.PageVO;
 import com.uinte.vo.ReturnCodeType;
@@ -38,6 +40,9 @@ public class SpotsController {
 
 	@Resource(name = "spotsService")
 	private ISpotsService spotsService;
+	
+	@Resource(name = "photographerSpotsService")
+	IPhotographerSpotsService photographerSpotsService;
 
 	/**
 	 * 添加拍摄景点
@@ -70,9 +75,9 @@ public class SpotsController {
 
 	}
 
-	
 	/**
 	 * 修改spots
+	 * 
 	 * @param spots
 	 * @return
 	 */
@@ -81,16 +86,18 @@ public class SpotsController {
 	public ReturnResult updateSpots(TSpots spots) {
 		returnResult.setStatus(ReturnCodeType.FAILURE);
 		try {
-			spotsService.updateBySQL("UPDATE t_spots SET name='" + spots.getName() + "',content='"+spots.getContent()+"', status="+spots.getStatus()+" WHERE id=" + spots.getId());
+			spotsService.updateBySQL("UPDATE t_spots SET name='" + spots.getName() + "',content='" + spots.getContent()
+					+ "', status=" + spots.getStatus() + " WHERE id=" + spots.getId());
 			returnResult.setStatus(ReturnCodeType.SUCCESS);
 		} catch (Exception e) {
 			logger.error("修改spots失败" + e);
 		}
 		return returnResult;
 	}
-	
+
 	/**
 	 * 分页获取spots
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "getSpotsListByPage", method = RequestMethod.POST)
@@ -100,8 +107,7 @@ public class SpotsController {
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			StringBuffer sql = new StringBuffer("SELECT DISTINCT * FROM t_spots WHERE 1=1");
-		
-			
+
 			List<Map<String, Object>> results = spotsService.selectPageBySQL(sql.toString(), page.getPage() - 1,
 					page.getRows());
 			if (!results.isEmpty() && results != null) {
@@ -114,13 +120,15 @@ public class SpotsController {
 				resultMap.put("rows", results);
 				returnResult.setStatus(ReturnCodeType.SUCCESS).setData(resultMap);
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logger.error("分页获取spots失败" + e);
 		}
 		return returnResult;
 	}
+
 	/**
 	 * 根据获取id spots
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -129,15 +137,16 @@ public class SpotsController {
 	public ReturnResult getSpotsById(Integer id) {
 		returnResult.setStatus(ReturnCodeType.FAILURE);
 		try {
-				returnResult.setStatus(ReturnCodeType.SUCCESS).setData(spotsService.selectByPrimaryKey(id));
-		}catch (Exception e) {
+			returnResult.setStatus(ReturnCodeType.SUCCESS).setData(spotsService.selectByPrimaryKey(id));
+		} catch (Exception e) {
 			logger.error("根据获取spots失败" + e);
 		}
 		return returnResult;
 	}
-	
+
 	/**
 	 * 获取所有启用的spots
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "getAllSpots", method = RequestMethod.POST)
@@ -151,8 +160,10 @@ public class SpotsController {
 		}
 		return returnResult;
 	}
+
 	/**
 	 * 获取所有5条启用的spots
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "getFiveSpots", method = RequestMethod.POST)
@@ -160,11 +171,34 @@ public class SpotsController {
 	public ReturnResult getFiveSpots() {
 		returnResult.setStatus(ReturnCodeType.FAILURE);
 		try {
-			returnResult.setStatus(ReturnCodeType.SUCCESS).setData(spotsService.selectBySQL("select * from t_spots  ORDER BY id DESC limit 0,5"));
+			returnResult.setStatus(ReturnCodeType.SUCCESS)
+					.setData(spotsService.selectBySQL("select * from t_spots  ORDER BY id DESC limit 0,5"));
 		} catch (Exception e) {
 			logger.error("获取所有5条启用的spots失败" + e);
 		}
 		return returnResult;
 	}
 
+	/**
+	 * 删除spots
+	 * 
+	 * @param info
+	 * @return
+	 */
+	@RequestMapping(value = "deleteSpotsById", method = RequestMethod.POST)
+	@ResponseBody
+	public ReturnResult deleteSpotsById(Integer id, HttpServletRequest request) {
+		returnResult.setStatus(ReturnCodeType.FAILURE);
+		try {
+			TSpots info = spotsService.selectByPrimaryKey(id);
+			String photographerSpotsSql = "delete from t_photographer_spots where `spotsId` = " + info.getId();
+			photographerSpotsService.deleteBySQL(photographerSpotsSql);
+			spotsService.deleteByPrimaryKey(id);
+			OperationFileUtil.deleteFileByRoot(info.getPath());
+			returnResult.setStatus(ReturnCodeType.SUCCESS);
+		} catch (Exception e) {
+			logger.error("删除TSpots失败" + e);
+		}
+		return returnResult;
+	}
 }

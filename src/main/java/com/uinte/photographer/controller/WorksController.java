@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.uinte.common.util.OperationFileUtil;
 import com.uinte.common.util.StaticConfigurationItem;
 import com.uinte.model.TAttachment;
+import com.uinte.model.TInfomation;
 import com.uinte.model.TWorks;
 import com.uinte.photographer.service.IAttachmentService;
 import com.uinte.photographer.service.IWorksService;
@@ -278,4 +279,27 @@ public class WorksController {
 		}
 		return returnResult;
 	}
+	
+	/**
+	 * 删除info
+	 * @param info
+	 * @return
+	 */
+	@RequestMapping(value = "deleteWorksById", method = RequestMethod.POST)
+	@ResponseBody
+	public ReturnResult deleteWorksById(Integer id,HttpServletRequest request) {
+		returnResult.setStatus(ReturnCodeType.FAILURE);
+		try {
+			TWorks info = worksService.selectByPrimaryKey(id);
+			String attachmentSql = "delete from t_attachment where `worksId` = " + info.getId();
+			attachmentService.deleteBySQL(attachmentSql);
+			worksService.deleteByPrimaryKey(id);
+			OperationFileUtil.deleteFileByRoot(info.getPath());
+			returnResult.setStatus(ReturnCodeType.SUCCESS);
+		} catch (Exception e) {
+			logger.error("删除works失败" + e);
+		}
+		return returnResult;
+	}
+	
 }

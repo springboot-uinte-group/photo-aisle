@@ -108,7 +108,7 @@ require(['jquery','jqGrid','zDialog','jqtips','jqueryForm','chosen','jqValidate'
 		$("#addButton").click(function () {
 			var diag = new top.Dialog();
 			diag.Drag=true;
-			diag.Title ="作品新增";
+			diag.Title ="新的故事";
 			diag.URL = baseUrl+'/manage/page/works_add.html';
 			diag.Width = 800;
 			diag.Height = 600;
@@ -126,8 +126,8 @@ require(['jquery','jqGrid','zDialog','jqtips','jqueryForm','chosen','jqValidate'
 			var vsspots= $("#spots").val();
 			var vstatus= $("#status").val();
 			 $(grid_selector).jqGrid("setGridParam", {
-			     postData: { photographerId:vsphotographer,spotsId:vsspots,
-			    	 status:vstatus},page:1
+			     postData: { photographerId:vsphotographer,spotsId:vsspots,status:vstatus},
+			     page:1
 			 }); 
             $(grid_selector).trigger("reloadGrid"); 
 		});
@@ -140,7 +140,7 @@ require(['jquery','jqGrid','zDialog','jqtips','jqueryForm','chosen','jqValidate'
 			$(window.parent.document).find("#iframepage_"+priviledgeId).height(document.body.scrollHeight);
 		})
 		jQuery(grid_selector).jqGrid({
-			url : "/getWorksListByPage?status=0",
+			url : "/getWorksListByPage",
 			datatype : "json",
 			mtype : "post",
 			jsonReader : {   
@@ -174,21 +174,18 @@ require(['jquery','jqGrid','zDialog','jqtips','jqueryForm','chosen','jqValidate'
 					},
 			gridComplete: function(){  //添加页面操作按钮
 						var ids = jQuery(grid_selector).jqGrid('getDataIDs');
-						
 						for(var i=0;i < ids.length;i++){
 							var cl = ids[i];
-							
 							var operateString = "<a class='btn btn-info btn-xs' onclick='viewRow("+cl+")'> <i class='ace-icon fa ace-icon fa fa-search-plus'></i>查看</a>"; 
 							//事件的写法
-							
 								edit = "<a class='btn btn-success btn-xs' onclick='editRow("+cl+")'> <i class='ace-icon fa ace-icon fa fa-pencil-square-o'></i>修改</a>"; 
 								operateString += " "+edit;
 								operateString += " <a class='btn btn-danger btn-xs' onclick='setRow("+cl+")'> <i class='ace-icon fa ace-icon fa fa-pencil-square-o'></i>设置封面</a>";
+								operateString += " <a class='btn btn-warning btn-xs' onclick='deleteWorksById("+cl+")'> <i class='ace-icon fa ace-icon fa fa-cog'></i>删除</a>";
 								jQuery(grid_selector).jqGrid('setRowData',ids[i],{operate:operateString}); //设置行的值
 							}	
 						}
 			});
-				
 		$(window).triggerHandler('resize.jqGrid');// trigger window resize to make 	 the grid get the  correct size
 
 		function updateActionIcons(table) {
@@ -266,13 +263,17 @@ require(['jquery','jqGrid','zDialog','jqtips','jqueryForm','chosen','jqValidate'
 				return  "<span class='label label-danger arrowed-in'>禁用</span>"
 			}
 		}
-function statuFun(c,o,r) {
-			if(c==0) {
-				return  "<label><input id='status' name='status'  class='ace ace-switch ace-switch-5 btn-rotate' type='checkbox' checked onclick='isChecked(this,"+r.id+")'><span class='lbl'></span></label>"
-			} else {
-				return  "<label><input id='status' name='status'  class='ace ace-switch ace-switch-5 btn-rotate' type='checkbox'  onclick='isChecked(this,"+r.id+")'><span class='lbl'></span></label>"
+
+			function statuFun(c, o, r) {
+				if (c == 0) {
+					return "<label><input id='status' name='status'  class='ace ace-switch ace-switch-5 btn-rotate' type='checkbox' checked onclick='isChecked(this,"
+							+ r.id + ")'><span class='lbl'></span></label>"
+				} else {
+					return "<label><input id='status' name='status'  class='ace ace-switch ace-switch-5 btn-rotate' type='checkbox'  onclick='isChecked(this,"
+							+ r.id + ")'><span class='lbl'></span></label>"
+				}
 			}
-		}
+			
 		$(document).one('ajaxloadstart.page', function(e) {
 			$(grid_selector).jqGrid('GridUnload');
 			$('.ui-jqdialog').remove();

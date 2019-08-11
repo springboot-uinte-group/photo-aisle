@@ -150,6 +150,7 @@ require(['jquery','jqGrid','zDialog','jqtips','jqueryForm','chosen','jqValidate'
 							//事件的写法
 							
 							var operateString = "<a class='btn btn-success btn-xs' onclick='editRow("+cl+")'> <i class='ace-icon fa ace-icon fa fa-pencil-square-o'></i>修改</a>"; 
+							operateString += " <a class='btn btn-warning btn-xs' onclick='deleteSpotsById("+cl+")'> <i class='ace-icon fa ace-icon fa fa-cog'></i>删除</a>";
 							jQuery(grid_selector).jqGrid('setRowData',ids[i],{operate:operateString}); //设置行的值
 							}	
 						}

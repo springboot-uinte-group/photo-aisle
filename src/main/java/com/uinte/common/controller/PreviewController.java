@@ -42,7 +42,7 @@ public class PreviewController {
 	 */
 	@RequestMapping(value = "preview", method = RequestMethod.GET)
 	public void preview(String path, String fileName, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
-		Long s = System.currentTimeMillis();
+//		Long s = System.currentTimeMillis();
 		response.setContentType("text/html; charset=UTF-8");
 //		response.setContentType("image/jpeg");
 		response.setContentType("image/jpeg/jpg/png/gif/bmp/tiff/svg");
@@ -53,8 +53,8 @@ public class PreviewController {
 		out = response.getOutputStream();
 		byte[] fileBytes = OperationFileUtil.downloadFile(realPath);
 		out.write(fileBytes);
-		Long e = System.currentTimeMillis();
-		System.out.println("excTime:"+ (e-s));
+//		Long e = System.currentTimeMillis();
+//		System.out.println("excTime:"+ (e-s));
 	}
 
 	/**

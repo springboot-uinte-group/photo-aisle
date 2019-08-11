@@ -3,6 +3,7 @@ package com.uinte.common.util;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.lang.StringUtils;
@@ -10,15 +11,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class UploadTools {
-
+	
 	public static final ReentrantLock lock = new ReentrantLock();
+	
+	private final static String FILE_ROOT = "UPLOAD_ROOT_DIR";
 
 	private static final Logger logger = LoggerFactory.getLogger(UploadTools.class);
 
 	public UploadTools() {
 
 	}
+	
+	public static String getUploadBootDir() {
+		return getEnvStr(FILE_ROOT, StaticConfigurationItem.UPLOAD_ROOT_DIR);
+	}
 
+	
+	private static String getEnvStr(String key, String defaultVal) {
+		String val = System.getenv(key);
+		if (val != null) {
+			return val;
+		} else {
+			val = System.getProperty(key);
+			return val == null ? defaultVal : val;
+		}
+	}
+	
 	/**
 	 * 获取根目录
 	 * @return
@@ -27,18 +45,18 @@ public class UploadTools {
 	public static String getRootDirectory() throws FileNotFoundException {
 		File direc = null;
 		try {
-			direc = new File(StaticConfigurationItem.UPLOAD_BOOT_DIR);
+			direc = new File(getUploadBootDir());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if (direc == null) {
-			throw new FileNotFoundException(StaticConfigurationItem.UPLOAD_BOOT_DIR + "无效的根目录");
+			throw new FileNotFoundException(getUploadBootDir() + "无效的根目录");
 		}
 		if (!direc.isDirectory()) {
 			throw new FileNotFoundException("不是有效目录");
 		}
 		direc = null;
-		return StaticConfigurationItem.UPLOAD_BOOT_DIR;
+		return getUploadBootDir();
 	}
 
 	/**
@@ -102,6 +120,11 @@ public class UploadTools {
 			lock.unlock();
 		}
 		return StringUtils.join(paths, "\\");
+	}
+	
+	public static Map<String, Byte[]> getFileBytes(String rootPath){
+		
+		return null;
 	}
 	
 	/**

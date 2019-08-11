@@ -163,7 +163,7 @@ require(['aceEle','zDialog','jqtips','jqueryForm','jqValidate','datepicker','tag
 			//thumbnail: 'small', // 缩略图大小，仅启动style的时候有效，支持html5的浏览器有效
 			btn_choose: '请选择',
 			btn_change: '更改',
-			maxSize: 10000000 
+			maxSize: 52428800 // 50Mb
 		}; 
 	//初始化上传框
 	$('#attachment').ace_file_input(setting); 

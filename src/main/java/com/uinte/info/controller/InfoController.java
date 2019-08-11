@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.uinte.common.util.OperationFileUtil;
 import com.uinte.common.util.StaticConfigurationItem;
 import com.uinte.info.service.IInfoService;
+import com.uinte.model.TBanner;
 import com.uinte.model.TInfomation;
 import com.uinte.vo.PageVO;
 import com.uinte.vo.ReturnCodeType;
@@ -190,6 +191,28 @@ public class InfoController {
 		result.put("data", filePath);
 		result.put("status", 0);
 		return result;
+	}
+	
+	/**
+	 * 删除info
+	 * @param info
+	 * @return
+	 */
+	@RequestMapping(value = "deleteInfoById", method = RequestMethod.POST)
+	@ResponseBody
+	public ReturnResult deleteInfoById(Integer id,HttpServletRequest request) {
+		returnResult.setStatus(ReturnCodeType.FAILURE);
+		try {
+//			String filePath = request.getServletContext().getRealPath("/");
+			TInfomation info = infoService.selectByPrimaryKey(id);
+//			filePath +=info.getPath();
+			OperationFileUtil.deleteFileByRoot(info.getPath());
+			infoService.deleteByPrimaryKey(id);
+			returnResult.setStatus(ReturnCodeType.SUCCESS);
+		} catch (Exception e) {
+			logger.error("删除info失败" + e);
+		}
+		return returnResult;
 	}
 
 }

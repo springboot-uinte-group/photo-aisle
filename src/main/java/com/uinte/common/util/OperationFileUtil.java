@@ -1,6 +1,7 @@
 package com.uinte.common.util;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -140,8 +141,9 @@ public final class OperationFileUtil {
 		Map<String, String> filePaths = new HashMap<String, String>();
 		File file = null;
 		// 创建一个通用的多部分解析器
-		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
-				request.getSession().getServletContext());
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+		Long fiftyMb = 52428800L;
+		multipartResolver.setMaxUploadSize(fiftyMb);
 		// 判断 request 是否有文件上传,即多部分请求
 		if (multipartResolver.isMultipart(request)) {
 			// 转换成多部分request
@@ -157,7 +159,7 @@ public final class OperationFileUtil {
 						String finalFileName = changeFilename2UUID(fileName);
 						file = new File(basePath + File.separator + finalFileName);
 //						filePaths.put(fileName, file.getPath());
-						filePaths.put(fileName, file.getPath().replace(StaticConfigurationItem.UPLOAD_BOOT_DIR, ""));
+						filePaths.put(fileName, file.getPath().replace(UploadTools.getUploadBootDir(), ""));
 						multipartFile.transferTo(file);
 					}
 				}
@@ -192,4 +194,24 @@ public final class OperationFileUtil {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * 删除文件
+	 * 
+	 * @param filePath
+	 * @throws FileNotFoundException 
+	 */
+	public static void deleteFileByRoot(String filePath) throws FileNotFoundException {
+		String root = UploadTools.getRootDirectory();
+		String path = root + File.separator + filePath;
+		try {
+			File file = new File(path);
+			if (file.exists() && file.isFile()) {
+				file.delete();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
